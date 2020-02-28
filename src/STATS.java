@@ -6,6 +6,7 @@ public class STATS {
     private static int level=1;
     private static int lowSpeed=4;
     private static int rangeSpeed=8;
+    private static int numDeaths=0;
 
     public static int getNumFood() {
         return numFood;
@@ -69,5 +70,13 @@ public class STATS {
                 setLowSpeed(8);
                 setRangeSpeed(18);
         }
+    }
+
+    public static int getNumDeaths() {
+        return numDeaths;
+    }
+
+    public static void setNumDeaths(int numDeaths) {
+        STATS.numDeaths = numDeaths;
     }
 }

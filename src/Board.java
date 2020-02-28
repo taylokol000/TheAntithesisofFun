@@ -36,8 +36,36 @@ public class Board extends JPanel implements ActionListener {
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        for(Sprite thisGuy:actors){
-            thisGuy.paint(g);
+
+        if(GameStates.isMenu()){
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial",Font.PLAIN,72));
+            printSimpleString("TORTURE",getWidth(),0,100,g);
+            g.setFont(new Font("Sans",Font.PLAIN,36));
+            printSimpleString("CLICK anywhere to play.",getWidth(),0,300,g);
+        }
+
+        if(GameStates.isPause()){
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("Arial",Font.PLAIN,72));
+            printSimpleString("PAUSE",getWidth(),0,getWidth()/2-72/2,g);
+        }
+
+        if(GameStates.isDeath()){
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial",Font.PLAIN,72));
+            printSimpleString("YOU DIED",getWidth(),0,100,g);
+            g.setFont(new Font("Arial",Font.PLAIN,36));
+            printSimpleString("Click to play again.",getWidth(),0,300,g);
+        }
+
+        if(GameStates.isPlay()) {
+            for (Sprite thisGuy : actors) {
+                thisGuy.paint(g);
+            }
+            g.setColor(Color.BLUE);
+            g.setFont(new Font("Arial",Font.PLAIN,25));
+            printSimpleString("Deaths: "+STATS.getNumDeaths(),getWidth(),0,20,g);
         }
     }
 
@@ -45,6 +73,9 @@ public class Board extends JPanel implements ActionListener {
         for(int i=1;i<actors.size();i++){
             if(actors.get(0).collidesWith(actors.get(i))){
                 if(actors.get(i) instanceof Enemy){
+                    GameStates.setPlay(false);
+                    GameStates.setDeath(true);
+                    STATS.setNumDeaths(STATS.getNumDeaths()+1);
                     game.notClicked();
                 }else{
                     actors.get(i).setRemove();
@@ -61,22 +92,46 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        nextMoment=System.currentTimeMillis();
-        if((nextMoment-game.getMoment())>=1000) {
-            checkCollisions();
+        if(game.getIsClicked()){
+            GameStates.setMenu(false);
+            GameStates.setDeath(false);
+            GameStates.setWin(false);
+            GameStates.setPlay(true);
         }
 
-        if(game.getIsClicked()){
-            for(Sprite thisGuy:actors){
-                thisGuy.move();
+        if(game.isP()){
+            if(GameStates.isPause()) {
+                GameStates.setPause(false);
+                GameStates.setPlay(true);
+            }else{
+                GameStates.setPlay(false);
+                GameStates.setPause(true);
             }
         }
 
-        if(actors.size()<=STATS.getNumEnemies()+1){
-            System.out.println("Killed em all");
-            game.notClicked();
-        }
+        if(GameStates.isPlay()) {
+            nextMoment = System.currentTimeMillis();
+            if ((nextMoment - game.getMoment()) >= 1000) {
+                checkCollisions();
+            }
 
-        repaint();
+            for (Sprite thisGuy : actors) {
+                thisGuy.move();
+            }
+
+            if (actors.size() <= STATS.getNumEnemies() + 1) {
+                GameStates.setWin(true);
+                GameStates.setPlay(false);
+                game.notClicked();
+            }
+
+            repaint();
+        }
+    }
+
+    private void printSimpleString(String s,int width,int XPos,int YPos,Graphics g){
+        int stringLen=(int)g.getFontMetrics().getStringBounds(s,g).getWidth();
+        int start=width/2-stringLen/2;
+        g.drawString(s,start+XPos,YPos);
     }
 }

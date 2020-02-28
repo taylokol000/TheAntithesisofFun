@@ -1,16 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
-public class Game extends JFrame {
+public class Game extends JFrame implements KeyListener {
 
     Board board;
     int positionX,positionY;
     boolean mouseClicked=false;
     long moment;
+    boolean p=false;
 
     public Game(){
         setTitle("Torture");
@@ -67,6 +66,29 @@ public class Game extends JFrame {
 
     public static void main(String args[]){
         new Game();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_P){
+            p=true;
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode()==KeyEvent.VK_P){
+            p=false;
+        }
+    }
+
+    public boolean isP() {
+        return p;
     }
 
 }
