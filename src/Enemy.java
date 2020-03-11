@@ -2,8 +2,8 @@ import java.awt.*;
 
 public class Enemy extends Sprite{
 
-    public Enemy(Color color, int x, int y, int width, int height, Board board) {
-        super(color, x, y, width, height, board);
+    public Enemy(Color color, int x, int y, int width, int height, Board board,boolean eat,boolean last) {
+        super(color, x, y, width, height, board,eat,last);
     }
 
     @Override

@@ -4,6 +4,7 @@ public class GameStates {
     private static boolean menu=true;
     private static boolean death=false;
     private static boolean play=false;
+    private static boolean newLevel=false;
     private static boolean win=false;
 
     public static boolean isPause() {
@@ -36,6 +37,14 @@ public class GameStates {
 
     public static void setPlay(boolean play) {
         GameStates.play = play;
+    }
+
+    public static boolean isNewLevel() {
+        return newLevel;
+    }
+
+    public static void setNewLevel(boolean newLevel) {
+        GameStates.newLevel = newLevel;
     }
 
     public static boolean isWin() {

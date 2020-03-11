@@ -56,19 +56,31 @@ public class STATS {
         STATS.rangeSpeed = rangeSpeed;
     }
 
-    public static void updateLevel(){
-        switch(level){
+    public static void updateLevel() {
+        switch (level) {
             case 1:
                 setNumFood(5);
-                setNumEnemies(1);
-                setLowSpeed(4);
-                setRangeSpeed(4);
+                setNumEnemies(2);
+                setLowSpeed(2);
+                setRangeSpeed(2);
                 break;
             case 2:
+                setNumFood(8);
+                setNumEnemies(3);
+                setLowSpeed(3);
+                setRangeSpeed(5);
+                break;
+            case 3:
                 setNumFood(10);
                 setNumEnemies(3);
+                setLowSpeed(5);
+                setRangeSpeed(8);
+                break;
+            case 4:
+                setNumFood(15);
+                setNumEnemies(3);
                 setLowSpeed(8);
-                setRangeSpeed(18);
+                setRangeSpeed(10);
         }
     }
 

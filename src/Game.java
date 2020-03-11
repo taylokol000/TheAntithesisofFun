@@ -8,7 +8,7 @@ public class Game extends JFrame implements KeyListener {
     Board board;
     int positionX,positionY;
     boolean mouseClicked=false;
-    long moment;
+    long moment,waste;
     boolean p=false;
 
     public Game(){
@@ -48,6 +48,7 @@ public class Game extends JFrame implements KeyListener {
         pack();
         setLocationRelativeTo(null);
         board.setup();
+        waste=System.currentTimeMillis();
     }
 
     public int getPositionX() {
@@ -91,4 +92,7 @@ public class Game extends JFrame implements KeyListener {
         return p;
     }
 
+    public long getWaste() {
+        return waste;
+    }
 }

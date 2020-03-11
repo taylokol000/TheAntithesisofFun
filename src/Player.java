@@ -4,8 +4,10 @@ public class Player extends Sprite {
 
     Game game;
 
-    public Player(Color color,int x,int y,int width, int height, Board board,Game game) {
-        super(color, x, y, width, height, board);
+    public Player(Color color,int x,int y,int width, int height, Board board,Game game,boolean eat,boolean last) {
+        super(color, x, y, width, height, board,eat,last);
+        initialWidth=width;
+        initialHeight=height;
         this.game=game;
     }
 

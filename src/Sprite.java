@@ -3,19 +3,25 @@ import java.awt.*;
 public abstract class Sprite {
 
     Color color;
-    int x,y,width,height;
+    int x,y,width,height,initialWidth,initialHeight;
     double dx,dy;
     boolean remove=false;
+    boolean eat;
+    boolean last;
 
     Board board;
 
-    public Sprite(Color color,int x,int y,int width,int height,Board board){
+    public Sprite(Color color,int x,int y,int width,int height,Board board, boolean eat,boolean last){
         this.color=color;
         this.y=y;
         this.x=x;
         this.width=width;
+        initialWidth=width;
         this.height=height;
+        initialHeight=height;
         this.board=board;
+        this.eat=eat;
+        this.last=last;
 
         while(((int)dx==0||(int)dy==0)){
             double angle=2*Math.PI*(Math.random()+1);
@@ -100,5 +106,25 @@ public abstract class Sprite {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getInitialWidth() {
+        return initialWidth;
+    }
+
+    public int getInitialHeight() {
+        return initialHeight;
+    }
+
+    public boolean isEat() {
+        return eat;
+    }
+
+    public void setEat(boolean eat) {
+        this.eat = eat;
+    }
+
+    public boolean isLast() {
+        return last;
     }
 }

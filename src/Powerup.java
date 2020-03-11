@@ -1,7 +1,8 @@
 import java.awt.*;
 
-public class Food extends Sprite{
-    public Food(Color color, int x, int y, int width, int height, Board board,boolean eat,boolean last) {
+public class Powerup extends Sprite {
+
+    public Powerup(Color color, int x, int y, int width, int height, Board board,boolean eat,boolean last) {
         super(color, x, y, width, height, board,eat,last);
     }
 
